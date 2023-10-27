@@ -10,7 +10,7 @@ const planPrice = {
 		pro: 150
 	}
 };
-console.log(planPrice);
+
 const addonsPrice = {
 	addonMonthly: {
 		onlineService: 1,
@@ -34,11 +34,12 @@ let progress = 0;
 let plan = 'monthly';
 let currentPlan = 'arcade';
 let currentPlanPrice = 9;
-let selectedAddons = 'No add-ons';
+let selectedAddons = [];
 
-const info = document.querySelector('.your-info');
-// const plan = document.querySelector('.select-plan');
 const backBtn = document.querySelector('.back');
+const nextBtn = document.querySelector('.next');
+const confirmBtn = document.querySelector('.confirm');
+
 const tab = document.getElementsByClassName('tab');
 const progressStep = document.querySelectorAll('.progress');
 const validateInput = document.querySelectorAll('.validateInput');
@@ -56,34 +57,37 @@ const proPrice = document.getElementById('pro-price');
 
 const toggle = document.querySelector('.toggle');
 const onlinePrice = document.getElementById('online-price');
-// const onlineValue = document.getElementById('online');
 
 const storagePrice = document.getElementById('storage-price');
-// const storageValue = document.getElementById('storage');
 
 const customPrice = document.getElementById('custom-price');
-// const customValue = document.getElementById('custom');
 
 const freeMonths = document.querySelectorAll('.free');
-const radioPlan = document.querySelectorAll('.radio-plan');
 
 const checkboxes = document.querySelectorAll('.checkboxes');
 const choice = document.querySelectorAll('.pick-choice');
+
+const summaryContainer = document.querySelector('.summary-container');
+const selectedPlan = document.getElementById('selected-plan');
+const selectedPlanPrice = document.getElementById('selected-plan-price');
+const total = document.getElementById('total');
+const totalPrice = document.getElementById('total-price');
 
 // Navigation Progress
 function next(step) {
 	if (progress === tab.length - 1) return false;
 	if (progress === 0 && !valid()) return false;
 	let currentStep = step + progress;
-	console.log(currentStep);
+
 	progress = currentStep;
 	stepIndication(progress);
 }
 
 function back(step) {
 	if (progress === 0) return false;
+	if (progress === tab.length - 1) document.querySelectorAll('.dynamic').forEach((elem) => elem.remove());
 	currentStep = step + progress;
-	console.log(currentStep);
+
 	progress = currentStep;
 	stepIndication(progress);
 }
@@ -91,6 +95,16 @@ function back(step) {
 function stepIndication(n) {
 	if (n > 0) backBtn.style.visibility = 'visible';
 	else backBtn.style.visibility = 'hidden';
+
+	if (n === tab.length - 1) {
+		nextBtn.style.display = 'none';
+		confirmBtn.style.display = 'block';
+		summaryView();
+	} else {
+		nextBtn.style.display = 'block';
+		confirmBtn.style.display = 'none';
+	}
+
 	for (let i = 0; i < tab.length; i++) {
 		tab[i].classList.remove('active');
 		progressStep[i].classList.add('hide');
@@ -104,7 +118,7 @@ function stepIndication(n) {
 toggle.addEventListener('click', () => {
 	//plan is Global variable
 	const result = toggle.classList.toggle('active');
-	console.log(result);
+
 	plan = result ? 'yearly' : 'monthly';
 	subscription();
 });
@@ -134,15 +148,15 @@ const subscription = () => {
 		}
 	} else {
 		// Step 2 - Select Plan
-		arcadePrice.innerText = `$${monthly.arcade}/mo`;
-		advancedPrice.innerText = `$${yearly.advanced}/mo`;
-		proPrice.innerText = `$${yearly.pro}/mo`;
+		arcadePrice.innerText = `$${yearly.arcade}/yr`;
+		advancedPrice.innerText = `$${yearly.advanced}/yr`;
+		proPrice.innerText = `$${yearly.pro}/yr`;
 		// Step 2 - Select Plan
 
 		// Step 3 - Add-Ons
-		onlinePrice.innerText = `$${addonYearly.onlineService}/mo`;
-		storagePrice.innerText = `$${addonYearly.largerStorage}/mo`;
-		customPrice.innerText = `$${addonYearly.customizableProfile}/mo`;
+		onlinePrice.innerText = `$${addonYearly.onlineService}/yr`;
+		storagePrice.innerText = `$${addonYearly.largerStorage}/yr`;
+		customPrice.innerText = `$${addonYearly.customizableProfile}/yr`;
 		// Step 3 - Add-Ons
 
 		monthlySub.classList.remove('active-subscription');
@@ -216,7 +230,7 @@ const totalAddons = () => {
 		}
 	}
 
-	if (selectedAddons.length === 0) selectedAddons = 'No add-ons';
+	//  if (selectedAddons.length === 0) selectedAddons = 'No add-ons';
 };
 
 // Validations
@@ -237,3 +251,63 @@ function hideInvalidMessage(currentElement) {
 	currentElement.previousElementSibling.lastElementChild.classList.add('hide-message');
 }
 // Validations
+
+//Change Summary
+const change = () => {
+	console.log('change');
+};
+const confirm = () => {
+	console.log('confirm');
+};
+
+const summaryView = () => {
+	let totalAddonsPrice = 0;
+	selectedPlan.innerText = `${currentPlan === 'arcade' ? 'Arcade' : currentPlan === 'advanced' ? 'Advanced' : 'Pro'}`;
+	selectedPlanPrice.innerText = `$${currentPlanPrice}/${plan === 'monthly' ? 'mo' : 'yr'}`;
+	if (selectedAddons.length === 0) {
+		selectedAddons = [
+			{
+				addon: 'No Add-ons',
+				price: 0
+			}
+		];
+		for (const elem of selectedAddons) {
+			const flexDiv = document.createElement('div');
+			flexDiv.classList.add('summary-flex', 'dynamic');
+
+			const textParagh = document.createElement('p');
+			textParagh.innerText = `${elem.addon}`;
+
+			const textPrice = document.createElement('p');
+			textPrice.innerText = `$${elem.price}`;
+
+			flexDiv.appendChild(textParagh);
+			flexDiv.appendChild(textPrice);
+
+			summaryContainer.appendChild(flexDiv);
+		}
+	} else {
+		for (const elem of selectedAddons) {
+			const flexDiv = document.createElement('div');
+			flexDiv.classList.add('summary-flex', 'dynamic');
+
+			const textParagh = document.createElement('p');
+			textParagh.innerText = `${elem.addon === 'onlineService'
+				? 'Online Service'
+				: elem.addon === 'largerStorage' ? 'Larger Storage' : 'Customizable Profile'}`;
+
+			const textPrice = document.createElement('p');
+			textPrice.innerText = `+$${elem.price}/${plan === 'monthly' ? 'mo' : 'yr'}`;
+
+			flexDiv.appendChild(textParagh);
+			flexDiv.appendChild(textPrice);
+
+			summaryContainer.appendChild(flexDiv);
+			totalAddonsPrice += elem.price;
+		}
+	}
+	total.innerText = `Total (per ${plan === 'monthly' ? 'month' : 'year'})`;
+	totalPrice.innerText = `+$${currentPlanPrice + totalAddonsPrice}/${plan === 'monthly' ? 'mo' : 'yr'}`;
+};
+
+//Change Summary

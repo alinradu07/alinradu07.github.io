@@ -199,7 +199,8 @@ input[type=number] {
 	margin: 0 auto;
 }
 
-.next {
+.next,
+.confirm {
 	cursor: pointer;
 	font-size: 1rem;
 	font-family: 'Ubuntu', sans-serif;
@@ -218,6 +219,30 @@ input[type=number] {
 	border: unset;
 	color: var(--cool-gray);
 }
+
+.change {
+	background: unset;
+	border: unset;
+	font-size: 1rem;
+	cursor: pointer;
+	color: var(--purplish-blue);
+	padding: 0;
+	text-decoration: underline;
+}
+
+.confirm {
+	display: none;
+}
+
+.next:hover,
+.confirm:hover {
+	background-color: #948cf8;
+}
+
+.change:hover {
+	color: #948cf8;
+}
+
 /* Buttons */
 
 /* Step 2 */
@@ -371,6 +396,43 @@ input[type="checkbox"] {
 	width: 95%;
 	margin: 0 auto 5.6rem auto;
 }
+
+.summary-container {
+	font-size: 1.2rem;
+	padding: .5em 1.2em 2.5em 1.2em;
+	border-radius: .4em;
+	background: var(--magnolia);
+}
+
+.summary-flex {
+	display: flex;
+	justify-content: space-between;
+}
+
+.summary-flex div {
+	margin-bottom: 2em;
+}
+
+.summary-flex:first-child {
+	border-bottom: 1px solid var(--light-gray);
+}
+
+.summary-flex:first-child p {
+	color: var(--marine-blue);
+	font-weight: 500;
+	margin: .8em 0 0 0;
+}
+
+.summary-total {
+	font-size: 1.2rem;
+	padding: .5em 1.2em 2.5em 1.2em;
+}
+
+.total-price {
+	color: var(--purplish-blue);
+	font-weight: 600;
+}
+
 /* Step 4 */
 
 /* Form */

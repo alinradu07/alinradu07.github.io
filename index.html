@@ -162,13 +162,25 @@
                         <div class="summary">
                             <h1>Finishing up</h1>
                             <p class="info-text">Double-check everything looks OK before confirming</p>
-                            <p id="plan-summary" class="info-text">a</p>
+                            <div class="summary-container">
+                                <div class="summary-flex">
+                                    <div>
+                                        <p id="selected-plan">Arcade (Monthly) </p>
+                                        <button onclick="change()" class="change" type="button">Change</button>
+                                    </div>
+                                    <p id="selected-plan-price">$9/mo</p>
+                                </div>
+                            </div>
+                            <div class="summary-total summary-flex">
+                                <p id="total">Total (per month)</p>
+                                <p id="total-price">+12$/mo</p>
+                            </div>
                         </div>
-                        
                     </div>
                     <div class="navigate-btns">
                         <button onclick="back(-1)" class="back" type="button">Go Back</button>
                         <button onclick="next(1)" class="next" type="button">Next Step</button>
+                        <button onclick="confirm()" class="confirm" type="button">Confirm</button>
                     </div>
                 </form>
         </div>
