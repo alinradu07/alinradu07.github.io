@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Multi-Step Form</title>
+</head>
+<body>
+    <div class="main-screen">
+        <div class="container">
+            <div class="left-menu-flex">
+                <div class="flex-items">
+                    <div>
+                        <p class="tab active">1</p>
+                    </div>
+                    <div class="step">
+                        <p>Step 1</p>
+                        <p>Your info</p>
+                    </div>
+                </div>
+                <div class="flex-items">
+                    <div>
+                        <p class="tab">2</p>
+                    </div>
+                    <div class="step">
+                        <p>Step 2</p>
+                        <p>Select plan</p>
+                    </div>
+                </div>
+                <div class="flex-items">
+                    <div>
+                        <p class="tab">3</p>
+                    </div>
+                    <div class="step">
+                        <p>Step 3</p>
+                        <p>Add-ons</p>
+                    </div>
+                </div>
+                <div class="flex-items">
+                    <div>
+                        <p class="tab">4</p>
+                    </div>
+                    <div class="step">
+                        <p>Step 4</p>
+                        <p>Summary</p>
+                    </div>
+                </div>
+            </div>
+                <form class="step-form"> 
+                    <div class="progress">
+                        <div class="your-info">
+                            <h1>Personal info</h1>
+                            <p class="info-text">Please provide your name, email address, and phone number.</p>
+                            <div class="info-label">
+                                <label for="name">Name</label>
+                                <p class="invalid hide-message">This field is required</p>
+                            </div>
+                            <input type="text" oninput="hideInvalidMessage(this)" name="name" class="validateInput" id="name" placeholder="e.g Stephen King">
+                            <div class="info-label">
+                                <label for="email">Email Address</label>
+                                <p class="invalid hide-message">This field is required</p>
+                            </div>      
+                            <input type="email" oninput="hideInvalidMessage(this)" name="email" id="email" class="validateInput" placeholder="e.g stephenking@lorem.com">
+                            <div class="info-label">
+                                <label for="number">Phone Number</label>
+                                <p class="invalid hide-message">This field is required</p>
+                            </div>    
+                            <input type="number" oninput="hideInvalidMessage(this)" inputmode="numeric" name="number" class="validateInput" id="number" placeholder="e.g +1 234 567 890">
+                        </div>
+                    </div>
+                    <div class="progress hide">
+                        <div class="select-plan">
+                            <h1>Select your plan</h1>
+                            <p class="info-text">You have to option of monthly or yearly billing.</p>
+                            <div class="radio-tile-group">
+                                <div class="input-container">
+                                    <input type="radio" id="arcade" onclick="radioButton(this.value)" class="radio-plan" name="plan" value="arcade" checked>
+                                    <div class="radio-tile">
+                                        <!-- icon -->
+                                        <img src="/images/icon-arcade.svg" alt="">
+                                        <label for="arcade">
+                                            <p class="pick-info text-title">Arcade</p>
+                                            <p id="arcade-price" class="pick-info">$9/mo</p>
+                                            <p class="free">2 months free</p>
+                                        </label>
+                                    </div>
+                                  </div>
+                                <div class="input-container">
+                                    <input type="radio" id="advanced" onclick="radioButton(this.value)" class="radio-plan" name="plan" value="advanced">
+                                    <div class="radio-tile">
+                                        <!-- icon -->
+                                        <img src="/images/icon-advanced.svg" alt="">
+                                        <label for="advanced">
+                                            <p class="pick-info text-title">Advanced</p>
+                                            <p id="advanced-price" class="pick-info">$12/mo</p>
+                                            <p class="free">2 months free</p>                  
+                                        </label>
+                                    </div>
+                                  </div>
+                                <div class="input-container">
+                                    <input type="radio" id="pro" onclick="radioButton(this.value)" class="radio-plan" name="plan" value="pro">
+                                    <div class="radio-tile">
+                                        <!-- icon -->
+                                        <img src="/images/icon-pro.svg" alt="">
+                                        <label for="pro">
+                                            <p class="pick-info text-title">Pro</p>
+                                            <p id="pro-price" class="pick-info">$15/mo</p>
+                                            <p class="free">2 months free</p>                                             
+                                        </label>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="subscription-plan">
+                                <p class="monthly active-subscription">Monthly</p>
+                                <div class="toggle"></div>
+                                <p class="yearly">Yearly</p>
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="progress hide">
+                        <div class="addons">
+                            <h1>Pick add-ons</h1>
+                            <p class="info-text">Add-ons help enhance your gaming experience</p>
+                            <div class="pick-monthly">
+                                <div class="pick-choice">
+                                    <div class="select">
+                                        <input type="checkbox" onclick="pickedAddons()" id="online" class="checkboxes" name="addon" value="onlineService">
+                                        <label for="online">
+                                            <p class="pick-info text-title">Online service</p>
+                                            <p class="pick-info">Access to multiplayer games</p>
+                                        </label>
+                                    </div>
+                                    <label id="online-price" for="online" class="pick-info price">+$1/mo</label>
+                                </div>
+                                <div class="pick-choice">
+                                    <div class="select">
+                                        <input type="checkbox" onclick="pickedAddons()" id="storage" class="checkboxes" name="addon" value="largerStorage">
+                                        <label for="storage">
+                                            <p class="pick-info text-title">Larger storage</p>
+                                            <p class="pick-info">Extra 1TB cloud save</p>
+                                        </label>
+                                    </div>
+                                    <label id="storage-price" for="storage" class="pick-info price">+$2/mo</label>
+                                </div>
+                                <div class="pick-choice">
+                                    <div class="select">
+                                        <input type="checkbox" onclick="pickedAddons()" id="custom" class="checkboxes" name="addon" value="customizableProfile">
+                                        <label for="custom">
+                                            <p class="pick-info text-title">Customizable Profile</p>
+                                            <p class="pick-info ">Custom theme on your profile</p>
+                                        </label>
+                                    </div>
+                                    <label id="custom-price" for="custom" class="pick-info price">+$2/mo</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="progress hide">
+                        <div class="summary">
+                            <h1>Finishing up</h1>
+                            <p class="info-text">Double-check everything looks OK before confirming</p>
+                            <p id="plan-summary" class="info-text">a</p>
+                        </div>
+                        
+                    </div>
+                    <div class="navigate-btns">
+                        <button onclick="back(-1)" class="back" type="button">Go Back</button>
+                        <button onclick="next(1)" class="next" type="button">Next Step</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
