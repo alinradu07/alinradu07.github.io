@@ -10,7 +10,7 @@ const planPrice = {
 		pro: 150
 	}
 };
-
+console.log(planPrice);
 const addonsPrice = {
 	addonMonthly: {
 		onlineService: 1,
