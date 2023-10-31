@@ -343,7 +343,18 @@ const change = () => {
 };
 const confirm = () => {
 	console.log('confirm');
-	summaryContainer.empty(); //Alin to add what is displayed after 
+	let el = document.querySelector('.summary');
+	let child = el.lastElementChild;
+	while(child) {
+		el.removeChild(child)
+		child = el.lastElementChild;
+	}
+	document.querySelector('.navigate-btns').style.display = 'none';
+	const finalParagh = document.createElement('p');
+	finalParagh.innerText = 'Thank you for submitting';
+	finalParagh.style.textAlign = 'center';
+	finalParagh.style.fontSize = '2rem'
+	el.appendChild(finalParagh);
 };
 
 const summaryView = () => {
